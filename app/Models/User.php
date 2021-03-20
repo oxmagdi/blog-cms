@@ -41,8 +41,39 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // one to many
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts(){
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * @param string $role_param
+     * @return bool
+     */
+    public function userHasRole(string $role_param): bool
+    {
+        foreach ($this->roles as $role)
+        {
+            if($role->slug == $role_param) return true;
+        }
+        return false;
     }
 }
