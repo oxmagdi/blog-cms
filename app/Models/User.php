@@ -17,7 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'username',
         'name',
+        'avatar',
         'email',
         'password',
     ];
@@ -75,5 +77,22 @@ class User extends Authenticatable
             if($role->slug == $role_param) return true;
         }
         return false;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setPasswordAttribute($value): void
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getAvatarAttribute($value)
+    {
+       return $this->attributes['avatar'] = 'storage/' . $value;
     }
 }
