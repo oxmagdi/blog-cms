@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,7 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/post/{post}', [PostController::class, 'show'])->name('post');
 
-Route::middleware('auth')->group(function (){
+Route::middleware(['auth', 'role:admin'])->group(function (){
     Route::get('/admin', [AdminsController::class, 'index'])->name('admin.index');
 
     Route::get('/admin/posts', [PostController::class, 'index'])->name('posts.index');
@@ -37,5 +38,8 @@ Route::middleware('auth')->group(function (){
 
     Route::get('/admin/users/{user}/profile', [UserController::class, 'show'])->name('users.profile.show');
     Route::put('/admin/users/{user}/update', [UserController::class, 'update'])->name('users.profile.update');
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index');
+    Route::delete('/admin/users/{user}/destroy', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
 });
 

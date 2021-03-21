@@ -4,7 +4,7 @@
 
         <div class="rwo">
             @if(session('profile-update'))
-                <div class="alert alert-danger">{{ session('profile-update') }}</div>
+                <div class="alert alert-success">{{ session('profile-update') }}</div>
             @endif
             <div class="col-sm-6">
                 <form method="post" action="{{ route('users.profile.update', $user) }}" enctype="multipart/form-data">

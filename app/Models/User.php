@@ -93,6 +93,6 @@ class User extends Authenticatable
      */
     public function getAvatarAttribute($value)
     {
-       return $this->attributes['avatar'] = 'storage/' . $value;
+       return $this->attributes['avatar'] = asset('storage/' . $value);
     }
 }
