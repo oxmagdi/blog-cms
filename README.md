@@ -1,5 +1,7 @@
 # blog-cms
 
+Laravel CMS Blog 
+
 ## install 
 
 ### 1- clone repository
